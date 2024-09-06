@@ -5,7 +5,7 @@ pipeline {
         DOCKER_HUB_CREDENTIALS = credentials('docker_cred') // Docker Hub credentials stored in Jenkins
         DOCKER_IMAGE = 'dheerajkr7866/my-python-app' // Change this to your Docker Hub repository name
         AWS_CREDENTIALS = credentials('aws_cred') // AWS credentials stored in Jenkins
-        AWS_REGION = 'us-west-2' // Replace with your AWS region
+        AWS_REGION = 'us-east-1' // Replace with your AWS region
         CODEDEPLOY_APPLICATION_NAME = 'python-app' // Replace with your CodeDeploy application name
         CODEDEPLOY_DEPLOYMENT_GROUP = 'python-auto-scaling-deployment-group' // Replace with your CodeDeploy deployment group for Auto Scaling
     }
@@ -47,7 +47,7 @@ pipeline {
                             --deployment-group-name ${CODEDEPLOY_DEPLOYMENT_GROUP} \
                             --deployment-config-name CodeDeployDefault.AllAtOnce \
                             --description "Deploying ${DOCKER_IMAGE}:latest" \
-                            --s3-location bucket=my-bucket,key=path/to/deployment.zip,bundleType=zip
+                            --s3-location bucket=my-bucket,key=/deployment.zip,bundleType=zip
                         """
                     }
                 }
