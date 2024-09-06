@@ -3,7 +3,7 @@
 set -e
 
 docker stop $(docker ps -a -q)
-Remove all the containers
+
 
 docker rm $(docker ps -a -q)
 # Pull the Docker image from Docker Hub
