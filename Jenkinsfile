@@ -6,8 +6,8 @@ pipeline {
         DOCKER_IMAGE = 'dheerajkr7866/my-python-app' // Change this to your Docker Hub repository name
         AWS_CREDENTIALS = credentials('aws_cred') // AWS credentials stored in Jenkins
         AWS_REGION = 'us-east-1' // Replace with your AWS region
-        CODEDEPLOY_APPLICATION_NAME = 'python-app-with-auto-scale' // Replace with your CodeDeploy application name
-        CODEDEPLOY_DEPLOYMENT_GROUP = '1st-deply-group' // Replace with your CodeDeploy deployment group for Auto Scaling
+        CODEDEPLOY_APP_NAME = 'python-app-with-auto-scale' // Replace with your CodeDeploy application name
+        DEPLOYMENT_GROUP = '1st-deply-group' // Replace with your CodeDeploy deployment group for Auto Scaling
         GITHUB_REPO = 'https://github.com/dheeraj7866/simple-python-app'
         // GITHUB_COMMIT_ID = 'latest-commit-id-or-branch'
     }
@@ -44,6 +44,7 @@ pipeline {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker_cred') {
                         docker.image("${DOCKER_IMAGE}:latest").push()
                     }
+                    echo "pushing done"
                 }
             }
         }
@@ -67,6 +68,9 @@ pipeline {
         // }
         stage('Trigger CodeDeploy') {
             steps {
+                script {
+                    echo "deploy started"
+                }
                 awsCodeDeploy(
                     applicationName: "${CODEDEPLOY_APP_NAME}",
                     deploymentGroupName: "${DEPLOYMENT_GROUP}",
