@@ -66,19 +66,30 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Trigger CodeDeploy') {
+        // 
+        stage('Deploy to EC2 via CodeDeploy') {
             steps {
-                script {
-                    echo "deploy started"
+                // Use AWS steps plugin to deploy using GitHub as the source
+                withAWS(region: "${AWS_REGION}", credentials: 'aws_cred') {
+                    script {
+                        def deploymentId = createDeployment(
+                            gitHubRepository: ${GITHUB_REPO}, // Replace with your GitHub repo URL
+                            gitHubCommitId: ${GITHUB_COMMIT_ID}, // Branch or commit ID to deploy
+                            applicationName: ${CODEDEPLOY_APP_NAME}, // AWS CodeDeploy Application Name
+                            deploymentGroupName: ${DEPLOYMENT_GROUP}, // AWS CodeDeploy Deployment Group
+                            deploymentConfigName: 'CodeDeployDefault.AllAtOnce', // Deployment Configuration (e.g., AllAtOnce)
+                            description: 'Deploy from Jenkins via GitHub',
+                            waitForCompletion: 'false'
+                        )
+
+                        echo "Deployment ID: ${deploymentId}"
+
+                        // Wait for the deployment to complete (optional)
+                        timeout(time: 15, unit: 'MINUTES') {
+                            awaitDeploymentCompletion(deploymentId: deploymentId)
+                        }
+                    }
                 }
-                awsCodeDeploy(
-                    applicationName: "${CODEDEPLOY_APP_NAME}",
-                    deploymentGroupName: "${DEPLOYMENT_GROUP}",
-                    region: "${AWS_REGION}",
-                    revisionType: 'GitHub',
-                    repository: "${GITHUB_REPO}",
-                    commitId: "${GITHUB_COMMIT_ID}"
-                )
             }
         }
     }
