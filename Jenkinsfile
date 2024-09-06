@@ -48,33 +48,15 @@ pipeline {
                 }
             }
         }
-
-        // stage('Deploy to AWS Auto Scaling Group') {
-        //     steps {
-        //         script {
-        //             withCredentials([aws(credentialsId: AWS_CREDENTIALS, region: AWS_REGION)]) {
-        //                 // Create a new CodeDeploy deployment for the Auto Scaling group
-        //                 sh """
-        //                 aws deploy create-deployment \
-        //                     --application-name ${CODEDEPLOY_APPLICATION_NAME} \
-        //                     --deployment-group-name ${CODEDEPLOY_DEPLOYMENT_GROUP} \
-        //                     --deployment-config-name CodeDeployDefault.AllAtOnce \
-        //                     --description "Deploying ${DOCKER_IMAGE}:latest" \
-        //                     --s3-location bucket=my-bucket,key=/deployment.zip,bundleType=zip
-        //                 """
-        //             }
-        //         }
-        //     }
-        // }
-        // 
+ 
         stage('Deploy to EC2 via CodeDeploy') {
             steps {
                 // Use AWS steps plugin to deploy using GitHub as the source
                 withAWS(region: "${AWS_REGION}", credentials: 'aws_cred') {
                     script {
-                        def deploymentId = createDeployment(
-                            gitHubRepository: 'https://github.com/dheeraj7866/simple-python-app', // Replace with your GitHub repo URL
-                            gitHubCommitId: 'a487f243d8a40dba5f015ecd1760b4141641a84d', // Branch or commit ID to deploy
+                        def deploymentResponse  = createDeployment(
+                            gitHubRepository: 'dheeraj7866/simple-python-app', // Replace with your GitHub repo URL
+                            gitHubCommitId: '${GITHUB_COMMIT_ID}', // Branch or commit ID to deploy
                             applicationName: 'python-app-with-auto-scale', // AWS CodeDeploy Application Name
                             deploymentGroupName: '1st-deply-group', // AWS CodeDeploy Deployment Group
                             deploymentConfigName: 'CodeDeployDefault.AllAtOnce', // Deployment Configuration (e.g., AllAtOnce)
@@ -82,6 +64,8 @@ pipeline {
                             waitForCompletion: 'false'
                         )
 
+                        echo "Deployment Response: ${deploymentResponse}"
+                        def deploymentId = deploymentResponse?.deploymentId
                         echo "Deployment ID: ${deploymentId}"
 
                         // Wait for the deployment to complete (optional)
