@@ -54,7 +54,7 @@ pipeline {
                 // Use AWS steps plugin to deploy using GitHub as the source
                 echo "GitHub Commit ID: ${GITHUB_COMMIT_ID}"
 
-                withAWS(region: "${AWS_REGION}", credentials: 'aws_cred') {
+                //withAWS(region: "${AWS_REGION}", credentials: 'aws_cred') {
                     script {
                         def deploymentResponse  = createDeployment(
                             gitHubRepository: 'dheeraj7866/simple-python-app', // Replace with your GitHub repo URL
@@ -75,7 +75,7 @@ pipeline {
                             awaitDeploymentCompletion(deploymentId: deploymentId)
                         }
                     }
-                }
+                //}
             }
         }
     }
