@@ -73,10 +73,10 @@ pipeline {
                 withAWS(region: "${AWS_REGION}", credentials: 'aws_cred') {
                     script {
                         def deploymentId = createDeployment(
-                            gitHubRepository: ${GITHUB_REPO}, // Replace with your GitHub repo URL
-                            gitHubCommitId: ${GITHUB_COMMIT_ID}, // Branch or commit ID to deploy
-                            applicationName: ${CODEDEPLOY_APP_NAME}, // AWS CodeDeploy Application Name
-                            deploymentGroupName: ${DEPLOYMENT_GROUP}, // AWS CodeDeploy Deployment Group
+                            gitHubRepository: 'https://github.com/dheeraj7866/simple-python-app', // Replace with your GitHub repo URL
+                            gitHubCommitId: 'a487f243d8a40dba5f015ecd1760b4141641a84d', // Branch or commit ID to deploy
+                            applicationName: 'python-app-with-auto-scale', // AWS CodeDeploy Application Name
+                            deploymentGroupName: '1st-deply-group', // AWS CodeDeploy Deployment Group
                             deploymentConfigName: 'CodeDeployDefault.AllAtOnce', // Deployment Configuration (e.g., AllAtOnce)
                             description: 'Deploy from Jenkins via GitHub',
                             waitForCompletion: 'false'
