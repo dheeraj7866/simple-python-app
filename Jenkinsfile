@@ -52,6 +52,8 @@ pipeline {
         stage('Deploy to EC2 via CodeDeploy') {
             steps {
                 // Use AWS steps plugin to deploy using GitHub as the source
+                echo "GitHub Commit ID: ${GITHUB_COMMIT_ID}"
+
                 withAWS(region: "${AWS_REGION}", credentials: 'aws_cred') {
                     script {
                         def deploymentResponse  = createDeployment(
