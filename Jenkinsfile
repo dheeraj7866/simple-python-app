@@ -9,7 +9,7 @@ pipeline {
         CODEDEPLOY_APPLICATION_NAME = 'python-app-with-auto-scale' // Replace with your CodeDeploy application name
         CODEDEPLOY_DEPLOYMENT_GROUP = '1st-deply-group' // Replace with your CodeDeploy deployment group for Auto Scaling
         GITHUB_REPO = 'https://github.com/dheeraj7866/simple-python-app'
-        GITHUB_COMMIT_ID = 'latest-commit-id-or-branch'
+        // GITHUB_COMMIT_ID = 'latest-commit-id-or-branch'
     }
 
     stages {
