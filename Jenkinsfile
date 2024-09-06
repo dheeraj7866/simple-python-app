@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     // Fetch the latest commit ID from the cloned repository
-                    GITHUB_COMMIT_ID = sh(script: "git -C simple-python-app rev-parse HEAD", returnStdout: true).trim()
+                    GITHUB_COMMIT_ID = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
                     echo "Latest Commit ID: ${GITHUB_COMMIT_ID}"
                 }
             }
