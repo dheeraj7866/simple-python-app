@@ -59,7 +59,7 @@ pipeline {
                     script {
                         def deploymentResponse  = createDeployment(
                             gitHubRepository: 'dheeraj7866/simple-python-app', // Replace with your GitHub repo URL
-                            gitHubCommitId: '5637722c7a9f337767bbbc6a45388c709ae8fab1', // Branch or commit ID to deploy
+                            gitHubCommitId: 'b4804efb5c232d58626604bd51d3b2f8bcf9a726', // Branch or commit ID to deploy
                             applicationName: 'python-app-with-auto-scale', // AWS CodeDeploy Application Name
                             deploymentGroupName: '1st-deply-group', // AWS CodeDeploy Deployment Group
                             deploymentConfigName: 'CodeDeployDefault.AllAtOnce', // Deployment Configuration (e.g., AllAtOnce)
