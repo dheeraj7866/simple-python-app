@@ -53,6 +53,7 @@ pipeline {
             steps {
                 // Use AWS steps plugin to deploy using GitHub as the source
                 echo "GitHub Commit ID: ${GITHUB_COMMIT_ID}"
+                echo "hi"
 
                 withAWS(region: "${AWS_REGION}", credentials: 'aws_cred') {
                     script {
