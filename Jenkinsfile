@@ -11,6 +11,9 @@ pipeline {
         GITHUB_REPO = 'https://github.com/dheeraj7866/simple-python-app'
         // GITHUB_COMMIT_ID = 'latest-commit-id-or-branch'
     }
+    triggers {
+        githubPush() // Trigger on a code push to the GitHub repo
+    }
 
     stages {
         // stage('Clone Repository') {
