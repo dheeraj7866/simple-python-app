@@ -64,7 +64,7 @@ pipeline {
                             deploymentGroupName: '1st-deply-group', // AWS CodeDeploy Deployment Group
                             deploymentConfigName: 'CodeDeployDefault.AllAtOnce', // Deployment Configuration (e.g., AllAtOnce)
                             description: 'Deploy from Jenkins via GitHub',
-                            waitForCompletion: 'false'
+                            waitForCompletion: 'true'
                         )
 
                         echo "Deployment Response: ${deploymentResponse}"
