@@ -28,6 +28,7 @@ pipeline {
                     // Fetch the latest commit ID from the cloned repository
                     GITHUB_COMMIT_ID = sh(script: "git rev-parse HEAD", returnStdout: true).trim()
                     echo "Latest Commit ID: ${GITHUB_COMMIT_ID}"
+                    echo "hi"
                 }
             }
         }
