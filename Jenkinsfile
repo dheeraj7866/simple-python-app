@@ -78,7 +78,7 @@ pipeline {
                         // timeout(time: 15, unit: 'MINUTES') {
                         //     awaitDeploymentCompletion(deploymentId: deploymentId)
                         // }
-                        echo "hi"
+                        echo "hi."
                     }
                 }
             }
