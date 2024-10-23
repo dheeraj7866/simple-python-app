@@ -18,6 +18,6 @@ EXPOSE 5000
 
 # Set environment variables, if necessary
 # ENV MY_ENV_VAR=value
-
+RUN apt-get update
 # Run the Flask application
 CMD ["python3", "app.py"]
